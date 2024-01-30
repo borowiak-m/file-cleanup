@@ -3,7 +3,10 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"os"
+	"path/filepath"
+	"time"
 )
 
 func readConfig(filePath string) ([]string, error) {
@@ -22,6 +25,32 @@ func readConfig(filePath string) ([]string, error) {
 	}
 	return lines, scanner.Err()
 }
+
+func processFolder(folderPath string, logChan chan string) error {
+	archivePath := filepath.Join(folderPath, "Archive")
+	if _, err : = os.Stat(archivePath); os.IsNotExist(err) {
+		if err := os.Mkdir(archivePath, 0755); err !=nil {
+			return err
+		}
+	}
+
+	filesInFolder, err := ioutil.ReadDir(folderPath)
+	if err != nil {return err}
+
+	for _, file := range filesInFolder {
+		if file.IsDir() {continue}
+		if time.Since(file.ModTime()).Hours() > (24*30*3) {
+			oldPath := filepath.Join(folderPath, file.Name())
+			newPath := filepath.Join(archivePath, "archived_"+file.Name())
+
+			if err := os.Rename(oldPath,newPath); err != nil {return err}
+
+			logChan <- fmt.Sprintf("Moved file: %s to %s", oldPath, newPath)
+		}
+	}
+
+	return nil
+} 
 
 func main() {
 	filePath := "C:/Users/mariusz.borowiak/Documents/Dev/GO/file-cleanup/config/config.txt"
