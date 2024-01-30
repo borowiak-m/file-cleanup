@@ -52,6 +52,24 @@ func processFolder(folderPath string, logChan chan string) error {
 	return nil
 } 
 
+func logActivity(logChan chan string, doneChan chan bool) {
+	logFile, err := os.OpenFile("C:/Users/mariusz.borowiak/Documents/Dev/GO/file-cleanup/log/log.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Println("Error opening log file:", err)
+		doneChan <- true
+		return
+	}
+	defer logFile.Close()
+
+	for logMsg := range logChan {
+		if _, err := logFile.WriteString(logMsg + "\n"); err != nil {
+			fmt.Println("Error writing to log file:", err)
+			continue
+		}
+	}
+	doneChan <- true
+}
+
 func main() {
 	filePath := "C:/Users/mariusz.borowiak/Documents/Dev/GO/file-cleanup/config/config.txt"
 	fmt.Println("Attempting to read file: ", filePath)
