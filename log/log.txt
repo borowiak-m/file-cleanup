@@ -1,0 +1,4 @@
+Moved file: C:\Users\mariusz.borowiak\Documents\My Music to C:\Users\mariusz.borowiak\Documents\Archive\archived_My Music
+Moved file: C:\Users\mariusz.borowiak\Documents\My Pictures to C:\Users\mariusz.borowiak\Documents\Archive\archived_My Pictures
+Moved file: C:\Users\mariusz.borowiak\Documents\My Videos to C:\Users\mariusz.borowiak\Documents\Archive\archived_My Videos
+Moved file: C:\Users\mariusz.borowiak\Documents\desktop.ini to C:\Users\mariusz.borowiak\Documents\Archive\archived_desktop.ini
