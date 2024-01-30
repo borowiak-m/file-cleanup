@@ -8,6 +8,13 @@ import (
 	"time"
 )
 
+const (
+	ConfigFilePath         = "C:/Users/mariusz.borowiak/Documents/Dev/GO/file-cleanup/config/config.txt"
+	LogFilePath            = "C:/Users/mariusz.borowiak/Documents/Dev/GO/file-cleanup/log/log.txt"
+	ArchiveSubDirName      = "Archive"
+	ArchivedFileNamePrefix = "archived_"
+)
+
 func readConfig(filePath string) ([]string, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -26,7 +33,7 @@ func readConfig(filePath string) ([]string, error) {
 }
 
 func processFolder(folderPath string, logChan chan string) error {
-	archivePath := filepath.Join(folderPath, "Archive")
+	archivePath := filepath.Join(folderPath, ArchiveSubDirName)
 	if _, err := os.Stat(archivePath); os.IsNotExist(err) {
 		if err := os.Mkdir(archivePath, 0755); err != nil {
 			return err
@@ -48,12 +55,11 @@ func processFolder(folderPath string, logChan chan string) error {
 		}
 		if time.Since(fileInfo.ModTime()).Hours() > (24 * 30 * 3) {
 			oldPath := filepath.Join(folderPath, file.Name())
-			newPath := filepath.Join(archivePath, "archived_"+file.Name())
+			newPath := filepath.Join(archivePath, ArchivedFileNamePrefix+file.Name())
 
 			if err := os.Rename(oldPath, newPath); err != nil {
 				return err
 			}
-
 			logChan <- fmt.Sprintf("Moved file: %s to %s", oldPath, newPath)
 		}
 	}
@@ -62,7 +68,7 @@ func processFolder(folderPath string, logChan chan string) error {
 }
 
 func logActivity(logChan chan string, doneChan chan bool) {
-	logFile, err := os.OpenFile("C:/Users/mariusz.borowiak/Documents/Dev/GO/file-cleanup/log/log.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	logFile, err := os.OpenFile(LogFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		fmt.Println("Error opening log file:", err)
 		doneChan <- true
@@ -80,7 +86,7 @@ func logActivity(logChan chan string, doneChan chan bool) {
 }
 
 func main() {
-	filePath := "C:/Users/mariusz.borowiak/Documents/Dev/GO/file-cleanup/config/config.txt"
+	filePath := ConfigFilePath
 	fmt.Println("Attempting to read file: ", filePath)
 	folders, err := readConfig(filePath)
 	if err != nil {
