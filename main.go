@@ -69,7 +69,7 @@ func processFolder(folderPath string, logChan chan string) error {
 	return nil
 }
 
-func deleteEmptyFolders(folderPath string) error {
+func deleteEmptyFolders(folderPath string, logChan chan string) error {
 	dirs, err := os.ReadDir(folderPath)
 	if err != nil {
 		return err
@@ -77,7 +77,7 @@ func deleteEmptyFolders(folderPath string) error {
 	for _, dir := range dirs {
 		if dir.IsDir() {
 			dirPath := filepath.Join(folderPath, dir.Name())
-			isEmpty, err := isFolderEmpty(dirPath)
+			isEmpty, err := isFolderEmpty(dirPath, logChan)
 			if err != nil {
 				return err
 			}
@@ -85,8 +85,9 @@ func deleteEmptyFolders(folderPath string) error {
 				if err := os.Remove(dirPath); err != nil {
 					return err
 				}
+				logChan <- "Deleted empty folder: " + dirPath
 			} else {
-				if err := deleteEmptyFolders(dirPath); err != nil {
+				if err := deleteEmptyFolders(dirPath, logChan); err != nil {
 					return err
 				}
 			}
@@ -95,7 +96,7 @@ func deleteEmptyFolders(folderPath string) error {
 	return nil
 }
 
-func isFolderEmpty(folderPath string) (bool, error) {
+func isFolderEmpty(folderPath string, logChan chan string) (bool, error) {
 	isEmpty := true
 	err := filepath.WalkDir(folderPath, func(path string, dir os.DirEntry, err error) error {
 		if err != nil {
@@ -107,6 +108,11 @@ func isFolderEmpty(folderPath string) (bool, error) {
 		}
 		return nil
 	})
+	if isEmpty {
+		logChan <- "Empty directory found: " + folderPath
+	} else {
+		logChan <- "Checking directory: " + folderPath
+	}
 	return isEmpty, err
 }
 
