@@ -60,11 +60,54 @@ func processFolder(folderPath string, logChan chan string) error {
 			if err := os.Rename(oldPath, newPath); err != nil {
 				return err
 			}
-			logChan <- fmt.Sprintf("Moved file: %s to %s", oldPath, newPath)
+			currentTime := time.Now().Format("2006-01-02 15:04:05")
+			logMessage := fmt.Sprintf("[%s] Moved file: %s to %s", currentTime, oldPath, newPath)
+			logChan <- logMessage
 		}
 	}
 
 	return nil
+}
+
+func deleteEmptyFolders(folderPath string) error {
+	dirs, err := os.ReadDir(folderPath)
+	if err != nil {
+		return err
+	}
+	for _, dir := range dirs {
+		if dir.IsDir() {
+			dirPath := filepath.Join(folderPath, dir.Name())
+			isEmpty, err := isFolderEmpty(dirPath)
+			if err != nil {
+				return err
+			}
+			if isEmpty {
+				if err := os.Remove(dirPath); err != nil {
+					return err
+				}
+			} else {
+				if err := deleteEmptyFolders(dirPath); err != nil {
+					return err
+				}
+			}
+		}
+	}
+	return nil
+}
+
+func isFolderEmpty(folderPath string) (bool, error) {
+	isEmpty := true
+	err := filepath.WalkDir(folderPath, func(path string, dir os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if path != folderPath && dir.IsDir() {
+			isEmpty = false
+			return filepath.SkipDir
+		}
+		return nil
+	})
+	return isEmpty, err
 }
 
 func logActivity(logChan chan string, doneChan chan bool) {

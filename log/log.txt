@@ -2,3 +2,19 @@ Moved file: C:\Users\mariusz.borowiak\Documents\My Music to C:\Users\mariusz.bor
 Moved file: C:\Users\mariusz.borowiak\Documents\My Pictures to C:\Users\mariusz.borowiak\Documents\Archive\archived_My Pictures
 Moved file: C:\Users\mariusz.borowiak\Documents\My Videos to C:\Users\mariusz.borowiak\Documents\Archive\archived_My Videos
 Moved file: C:\Users\mariusz.borowiak\Documents\desktop.ini to C:\Users\mariusz.borowiak\Documents\Archive\archived_desktop.ini
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\1.1.XLS to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_1.1.XLS
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\1.XLS to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_1.XLS
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\CCC.xlsx to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_CCC.xlsx
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\DataSource0.xml to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_DataSource0.xml
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\DataSource1.xml to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_DataSource1.xml
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\DataSource10.xml to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_DataSource10.xml
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\DataSource2.xml to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_DataSource2.xml
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\DataSource3.xml to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_DataSource3.xml
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\DataSource4.xml to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_DataSource4.xml
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\DataSource5.xml to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_DataSource5.xml
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\DataSource6.xml to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_DataSource6.xml
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\DataSource7.xml to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_DataSource7.xml
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\DataSource8.xml to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_DataSource8.xml
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\DataSource9.xml to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_DataSource9.xml
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\FileMetadata.csv - Copy.csv to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_FileMetadata.csv - Copy.csv
+Moved file: C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\FileMetadataA1.csv to C:\Users\mariusz.borowiak\OneDrive - Sysco Corporation\Documents\Archive\archived_FileMetadataA1.csv
