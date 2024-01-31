@@ -74,46 +74,31 @@ func deleteEmptyFolders(folderPath string, logChan chan string) error {
 	if err != nil {
 		return err
 	}
+	// if the folder does not contain anything, remove it
+	if len(dirs) == 0 {
+		logChan <- "Empty folder found:" + folderPath
+		if err := os.Remove(folderPath); err != nil {
+			logChan <- "Error trying to remove dir: " + folderPath + " with error: " + err.Error()
+			return err
+		}
+		logChan <- "Deleted empty folder: " + folderPath
+		return nil
+	}
+	// if it does contain something, loop over it
 	for _, dir := range dirs {
-		if dir.IsDir() {
-			dirPath := filepath.Join(folderPath, dir.Name())
-			isEmpty, err := isFolderEmpty(dirPath, logChan)
-			if err != nil {
-				return err
-			}
-			if isEmpty {
-				if err := os.Remove(dirPath); err != nil {
-					return err
-				}
-				logChan <- "Deleted empty folder: " + dirPath
-			} else {
-				if err := deleteEmptyFolders(dirPath, logChan); err != nil {
-					return err
-				}
-			}
+		if !dir.IsDir() {
+			logChan <- dir.Name() + " is not a directory"
+			// if not a directory, move on
+			continue
+		}
+		logChan <- dir.Name() + " is a directory"
+		dirPath := filepath.Join(folderPath, dir.Name())
+		// for each directory recurse over
+		if err := deleteEmptyFolders(dirPath, logChan); err != nil {
+			logChan <- "Error when recursing over dir: " + dirPath + "with error: " + err.Error()
 		}
 	}
 	return nil
-}
-
-func isFolderEmpty(folderPath string, logChan chan string) (bool, error) {
-	isEmpty := true
-	err := filepath.WalkDir(folderPath, func(path string, dir os.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
-		if path != folderPath && dir.IsDir() {
-			isEmpty = false
-			return filepath.SkipDir
-		}
-		return nil
-	})
-	if isEmpty {
-		logChan <- "Empty directory found: " + folderPath
-	} else {
-		logChan <- "Checking directory: " + folderPath
-	}
-	return isEmpty, err
 }
 
 func logActivity(logChan chan string, doneChan chan bool) {
@@ -151,6 +136,9 @@ func main() {
 	for _, folder := range folders {
 		if err := processFolder(folder, logChan); err != nil {
 			fmt.Println("Error processing folder:", err)
+		}
+		if err := deleteEmptyFolders(folder, logChan); err != nil {
+			fmt.Println("Error during deletion checks:", err)
 		}
 	}
 
