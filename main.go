@@ -74,16 +74,8 @@ func deleteEmptyFolders(folderPath string, logChan chan string) error {
 	if err != nil {
 		return err
 	}
-	// if the folder does not contain anything, remove it
-	if len(dirs) == 0 {
-		logChan <- "Empty folder found:" + folderPath
-		if err := os.Remove(folderPath); err != nil {
-			logChan <- "Error trying to remove dir: " + folderPath + " with error: " + err.Error()
-			return err
-		}
-		logChan <- "Deleted empty folder: " + folderPath
-		return nil
-	}
+	logChan <- fmt.Sprintf("*** Folder %s has %d elements", folderPath, len(dirs))
+
 	// if it does contain something, loop over it
 	for _, dir := range dirs {
 		if !dir.IsDir() {
@@ -97,6 +89,16 @@ func deleteEmptyFolders(folderPath string, logChan chan string) error {
 		if err := deleteEmptyFolders(dirPath, logChan); err != nil {
 			logChan <- "Error when recursing over dir: " + dirPath + "with error: " + err.Error()
 		}
+	}
+	// if the folder does not contain anything, remove it
+	if len(dirs) == 0 {
+		logChan <- "Empty folder found:" + folderPath
+		if err := os.Remove(folderPath); err != nil {
+			logChan <- "Error trying to remove dir: " + folderPath + " with error: " + err.Error()
+			return err
+		}
+		logChan <- "Deleted empty folder: " + folderPath
+		return nil
 	}
 	return nil
 }
